@@ -10,13 +10,38 @@
 <br>
 Shells:
 </h1>
-<p>Snails are very cool.</p>
 </body>
 
 
 <body>
+<button onclick="incrementText()">hunt a snail</button>
+
+<br>
+Snails: 
+<div id="snails">0</div>
+
+
+<script>
+var testValue = 0;
+document.getElementById("testValue").innerHTML = testValue;
+document.write(testValue);
+
+function incrementText() {
+  document.getElementById("snails").innerHTML++;
+}
+</script>
+</body>
+
+
+
+
+
+
+
+<body>
 <div style="position: fixed; bottom: 0px; left: 15px; font-size: 14px;">
-Version 1.4
+<p>Pro tip: Snails are very cool.</p>
+Version 1.5
 </div>
 </body>
 
