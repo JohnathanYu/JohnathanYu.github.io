@@ -7,41 +7,67 @@
 
 <body>
 <h1>Welcome to Snail Mail!
-<br>
-Shells:
 </h1>
 </body>
 
 
 <body>
+<div id="dialogDisplay">It's a beautiful day today!</div>
+
+<div id="snailsDisplay">Snails: 0</div>
+
 <button onclick="incrementText()">hunt a snail</button>
 
+
+
+<div id="wildSnailsDisplay" style="display:none">Snails in the wild: 100/100</div>
 <br>
-Snails: 
-<div id="snails">0</div>
+<button onclick="invokeAlert()">Test Button</button>
+
+
 
 
 <script>
-var testValue = 0;
-document.getElementById("testValue").innerHTML = testValue;
-document.write(testValue);
+var snails = 0;
+var wildSnails = 100;
+var maxWildSnails = 100;
+
+//setInterval(this.secInterval.bind(this), 1000);
+setInterval(secondTick, 1000);
 
 function incrementText() {
-  document.getElementById("snails").innerHTML++;
+  if(wildSnails >= 1) {
+    wildSnails--;
+    document.getElementById("wildSnailsDisplay").innerHTML = "Snails in the wild: " 
+    + wildSnails + "/" + maxWildSnails;
+    snails++;
+    document.getElementById("snailsDisplay").innerHTML = "Snails: " + snails;
+  } else {
+  	 document.getElementById("dialogDisplay").innerHTML = "Looks like there aren't any snails today. Maybe the snails need a while to reproduce.";
+     document.getElementById('wildSnailsDisplay').style.display='block'
+  }
+  
 }
+
+function invokeAlert() {
+  alert("you have " + snails + " snails.");  
+}
+
+function secondTick() {
+  if(wildSnails < maxWildSnails) {
+    wildSnails++;
+    document.getElementById("wildSnailsDisplay").innerHTML = "Snails in the wild: " 
+    + wildSnails + "/" + maxWildSnails;
+  }
+}
+
 </script>
 </body>
-
-
-
-
-
-
 
 <body>
 <div style="position: fixed; bottom: 0px; left: 15px; font-size: 14px;">
 <p>Pro tip: Snails are very cool.</p>
-Version 1.5
+Version 1.6
 </div>
 </body>
 
