@@ -15,8 +15,9 @@
 <div id="dialogDisplay">It's a beautiful day today!</div>
 
 <div id="snailsDisplay">Snails: 0</div>
+<div id="shellsDisplay" style="display:none">Shells: 0</div>
 
-<button onclick="huntSnail()">hunt a snail</button>
+<button onclick="huntSnail()">Hunt a snail</button>
 <div id="wildSnailsDisplay" style="display:none">Snails in the wild: 100/100</div>
 <br>
 
@@ -30,7 +31,7 @@
 
 
 <div id="snailsDeltaDisplay" style="display:none">DELTA</div>
-<button onclick="activateTestButton()">Test Button</button>
+<button id="testButton" onclick="activateTestButton()">Test button</button>
 
 
 
@@ -46,15 +47,24 @@ var wildSnailsBaseGrowth = .1;
 var farmBuildProgress = 0;
 var farmBuildProgressMax = 150;
 
+var farmSnails = 0;
+var farmSnailsMax = 50;
+
+var shells = 0;
+
 //flags
 var displayWildSnailsFlag = false;
 var suggestBuildingFarmFlag = false;
 var farmFullyBuiltFlag = false;
-
+var showFarmLimitFlag = false;
+var firstShellFlag = false;
+var hundredthShellFlag = false;
 
 setInterval(secondTick, 1000);
+setInterval(fiveSecondTick, 5000);
 
 function secondTick() {
+  //Wild snail generation
   if(wildSnails < wildSnailsMax) {
     var wildSnailsDelta = wildSnailsBaseGrowth * wildSnails * ((wildSnailsMax -                    wildSnails) / wildSnailsMax)
     document.getElementById("snailsDeltaDisplay").innerHTML = "Delta: " + wildSnailsDelta;
@@ -69,6 +79,25 @@ function secondTick() {
     updateWildSnailsText();
   }
 }
+
+function fiveSecondTick() {
+  //Shell production
+  shellDelta = Math.floor(Math.sqrt(farmSnails));
+  if(isNaN(shellDelta)) {
+    shellDelta = 0;
+  }
+  shells += shellDelta;
+  updateShellsText();
+  if(!firstShellFlag && shells >= 1) {
+    firstShellFlag = true;
+    document.getElementById("dialogDisplay").innerHTML = "Hmm, that's strange. The snails in the farm aren't making new snails—all you find are shells.";
+    document.getElementById('shellsDisplay').style.display='block';
+  } else if(!hundredthShellFlag && shells >= 100) {
+    hundredthShellFlag = true;
+    document.getElementById("dialogDisplay").innerHTML = "Maybe you can study the shells to understand what's going on. And maybe learn more about snails in general.";
+  }
+}
+
 
 function huntSnail() {
   if(wildSnails >= 1) {
@@ -99,9 +128,20 @@ function buildFarm() {
       farmFullyBuiltFlag = true;
     }
   }
-  
 }
 
+function plantSnail() {
+if(snails >= 1 && farmSnails < farmSnailsMax) {
+  loseSnails(1);
+  farmSnails++;
+  updateFarmSnailText();
+  if(!showFarmLimitFlag && farmSnails >= farmSnailsMax) {
+    document.getElementById("dialogDisplay").innerHTML = "The farm is filled to the brim! Seems that you can't stuff any more snails in your snail farm.";
+    showFarmLimitFlag = true;
+    updateFarmSnailText();
+  }
+}
+}
 
 function gainSnails(snailsToGain) {
   snails += snailsToGain;
@@ -139,9 +179,23 @@ function updateFarmBuildProgressText() {
   document.getElementById("farmBuildProgressDisplay").innerHTML = "Snails needed to build farm: " + farmBuildProgress + "/" + farmBuildProgressMax;
 }
 
+function updateFarmSnailText() {
+  if(showFarmLimitFlag) {
+    document.getElementById("farmSnailsDisplay").innerHTML = "Snails in the farm: " + farmSnails + "/" + farmSnailsMax;
+  } else {
+    document.getElementById("farmSnailsDisplay").innerHTML = "Snails in the farm: " + farmSnails;
+  } 
+}
+
+function updateShellsText() {
+  document.getElementById("shellsDisplay").innerHTML = "Shells: " + shells;
+}
+
 
 function activateTestButton() {
-  gainSnails(49);
+  if(snails < 149) {
+    gainSnails(49);
+  }
 }
 
 </script>
@@ -150,7 +204,7 @@ function activateTestButton() {
 <body>
 <div style="position: fixed; bottom: 0px; left: 15px; font-size: 14px;">
 <p>Pro tip: Snails are very cool.</p>
-Version 1.7
+Version 1.8
 </div>
 </body>
 
