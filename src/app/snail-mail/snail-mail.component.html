@@ -1,0 +1,38 @@
+
+<body>
+  <h1> Welcome to Snail Mail! </h1>
+</body>
+
+
+<body>
+  <div id="dialogDisplay">It's a beautiful day today!</div>
+
+  <div id="snailsDisplay">Snails: 0</div>
+  <div id="shellsDisplay" style="display:none">Shells: 0</div>
+
+  <button onclick="huntSnail()">Hunt a snail</button>
+  <div id="wildSnailsDisplay" style="display:none">Snails in the wild: {{ wildSnailsDisplay }}/{{ wildSnailsMax }}</div>
+
+  <br>
+
+  <button id="buildFarmButton" onclick="buildFarm()" style="display:none">Build the Snail Farm</button>
+  <div id="farmBuildProgressDisplay" style="display:none">Snails needed to build farm: 0/150</div>
+
+  <br id = "farmBuildLineBreak" style="display:none">
+
+  <button id="plantSnailButton" onclick="plantSnail()" style="display:none">Add a snail to the farm</button>
+  <div id="farmSnailsDisplay" style="display:none">Snails in the farm: 0</div>
+
+  <br id = "farmSnailsLineBreak" style="display:none">
+
+  <!-- style="display:none" -->
+  <div id="snailsDeltaDisplay" th:style="${DEBUGMODE ? 'display:block:display:none'}">Delta: {{ wildSnailsDelta }} </div>
+  <button id="testButton" onclick="activateTestButton()">Test button</button>
+</body>
+
+<body>
+  <div style="position: fixed; bottom: 0px; left: 15px; font-size: 14px;">
+    <p>Pro tip: Snails are very cool.</p>
+    Version 1.8
+  </div>
+</body>
