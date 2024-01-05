@@ -7,26 +7,33 @@
 <body>
   <div id="dialogDisplay">It's a beautiful day today!</div>
 
-  <div id="snailsDisplay">Snails: 0</div>
-  <div id="shellsDisplay" style="display:none">Shells: 0</div>
+  <div id="snailsDisplay">Snails: {{ snails }}</div>
+  <!-- style="display:none" -->
+  <div id="shellsDisplay">Shells: {{ shells }}</div>
 
-  <button onclick="huntSnail()">Hunt a snail</button>
-  <div id="wildSnailsDisplay" style="display:none">Snails in the wild: {{ wildSnailsDisplay }}/{{ wildSnailsMax }}</div>
+  <button (click)="huntSnail()">Hunt a snail</button>
+  <!-- style="display:none" -->
+  <div id="wildSnailsDisplay">Snails in the wild: {{ wildSnailsDisplay }}/{{ wildSnailsMax }}</div>
 
   <br>
-
-  <button id="buildFarmButton" onclick="buildFarm()" style="display:none">Build the Snail Farm</button>
-  <div id="farmBuildProgressDisplay" style="display:none">Snails needed to build farm: 0/150</div>
-
-  <br id = "farmBuildLineBreak" style="display:none">
-
-  <button id="plantSnailButton" onclick="plantSnail()" style="display:none">Add a snail to the farm</button>
-  <div id="farmSnailsDisplay" style="display:none">Snails in the farm: 0</div>
-
-  <br id = "farmSnailsLineBreak" style="display:none">
+  <!-- style="display:none" -->
+  <button id="buildFarmButton" onclick="buildFarm()">Build the Snail Farm</button>
+  <!-- style="display:none" -->
+  <div id="farmBuildProgressDisplay">Snails needed to build farm: {{ farmBuildProgress }}/{{ farmBuildProgressMax }}</div>
 
   <!-- style="display:none" -->
-  <div id="snailsDeltaDisplay" th:style="${DEBUGMODE ? 'display:block:display:none'}">Delta: {{ wildSnailsDelta }} </div>
+  <br id = "farmBuildLineBreak">
+
+  <!-- style="display:none" -->
+  <button id="plantSnailButton" onclick="plantSnail()">Add a snail to the farm</button>
+  <!-- style="display:none" -->
+  <div id="farmSnailsDisplay">Snails in the farm: {{ farmSnails }}{{ showFarmLimitFlag ? '/${farmSnailsMax}' : '' }}</div>
+
+  <!-- style="display:none" -->
+  <br id = "farmSnailsLineBreak">
+
+  <!-- style="display:none" -->
+  <div id="snailsDeltaDisplay">Delta: {{ wildSnailsDelta }} </div>
   <button id="testButton" onclick="activateTestButton()">Test button</button>
 </body>
 
