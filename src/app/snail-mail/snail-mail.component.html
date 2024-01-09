@@ -5,36 +5,35 @@
 
 
 <body>
-  <div id="dialogDisplay">It's a beautiful day today!</div>
+  <div id="dialogDisplay">{{ displayText }}</div>
 
   <div id="snailsDisplay">Snails: {{ snails }}</div>
-  <!-- style="display:none" -->
-  <div id="shellsDisplay">Shells: {{ shells }}</div>
+  <div *ngIf="firstShellFlag" id="shellsDisplay">Shells: {{ shells }}</div>
 
   <button (click)="huntSnail()">Hunt a snail</button>
-  <!-- style="display:none" -->
-  <div id="wildSnailsDisplay">Snails in the wild: {{ wildSnailsDisplay }}/{{ wildSnailsMax }}</div>
+  <div *ngIf="displayWildSnailsFlag" id="wildSnailsDisplay">Snails in the wild: {{ wildSnailsDisplay }}/{{ wildSnailsMax }}</div>
 
   <br>
-  <!-- style="display:none" -->
-  <button id="buildFarmButton" onclick="buildFarm()">Build the Snail Farm</button>
-  <!-- style="display:none" -->
-  <div id="farmBuildProgressDisplay">Snails needed to build farm: {{ farmBuildProgress }}/{{ farmBuildProgressMax }}</div>
 
-  <!-- style="display:none" -->
-  <br id = "farmBuildLineBreak">
+  <div *ngIf="suggestBuildingFarmFlag">
+    <button id="buildFarmButton" (click)="buildFarm()">Build the Snail Farm</button>
+    <div id="farmBuildProgressDisplay">Snails needed to build farm: {{ farmBuildProgress }}/{{ farmBuildProgressMax }}</div>
+    <br id = "farmBuildLineBreak">
+  </div>
 
-  <!-- style="display:none" -->
-  <button id="plantSnailButton" onclick="plantSnail()">Add a snail to the farm</button>
-  <!-- style="display:none" -->
-  <div id="farmSnailsDisplay">Snails in the farm: {{ farmSnails }}{{ showFarmLimitFlag ? '/${farmSnailsMax}' : '' }}</div>
 
-  <!-- style="display:none" -->
-  <br id = "farmSnailsLineBreak">
+  <div *ngIf="farmFullyBuiltFlag">
+    <button id="plantSnailButton" (click)="plantSnail()">Add a snail to the farm</button>
+    <div id="farmSnailsDisplay">Snails in the farm: {{ farmSnails }}{{ showFarmLimitFlag ? '/' + farmSnailsMax : '' }}</div>
+    <br id = "farmSnailsLineBreak">
+  </div>
 
-  <!-- style="display:none" -->
-  <div id="snailsDeltaDisplay">Delta: {{ wildSnailsDelta }} </div>
-  <button id="testButton" onclick="activateTestButton()">Test button</button>
+
+  <div *ngIf="DEBUGMODE">
+    <div id="snailsDeltaDisplay">Delta: {{ wildSnailsDelta }} </div>
+    <button id="testButton" (click)="activateTestButton()">Test button</button>
+  </div>
+
 </body>
 
 <body>

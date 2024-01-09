@@ -1,13 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
 
 @Component({
   selector: 'snail-mail',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './snail-mail.component.html',
   styleUrls: ['./snail-mail.component.css']
 })
 export class SnailMailComponent implements OnInit {
-  DEBUGMODE: boolean = false;
+  DEBUGMODE: boolean = true;
+
+  displayText: string = 'It\'s a beautiful day today!';
 
   snails: number = 0;
   totalAquiredSnails: number = 0;
@@ -70,11 +75,10 @@ export class SnailMailComponent implements OnInit {
     // updateShellsText();
     if(!this.firstShellFlag && this.shells >= 1) {
       this.firstShellFlag = true;
-      // document.getElementById("dialogDisplay").innerHTML = "Hmm, that's strange. The snails in the farm aren't making new snails�all you find are shells.";
-      // document.getElementById('shellsDisplay').style.display='block';
+      this.displayText = "Hmm, that's strange. The snails in the farm aren't making new snails; all you find are shells.";
     } else if(!this.hundredthShellFlag && this.shells >= 100) {
       this.hundredthShellFlag = true;
-      // document.getElementById("dialogDisplay").innerHTML = "Maybe you can study the shells to understand what's going on. And maybe learn more about snails in general.";
+      this.displayText = "Maybe you can study the shells to understand what's going on. And maybe learn more about snails in general.";
     }
   }
   
@@ -85,8 +89,7 @@ export class SnailMailComponent implements OnInit {
       this.updateWildSnailsText();
       this.gainSnails(1);
     } else if(this.displayWildSnailsFlag == false){
-      //  document.getElementById("dialogDisplay").innerHTML = "Looks like there aren't any snails today. Maybe the snails need a while to reproduce.";
-      //  document.getElementById('wildSnailsDisplay').style.display='inline'
+       this.displayText = "Looks like there aren't any snails today. Maybe the snails need a while to reproduce.";
        this.displayWildSnailsFlag = true;
     }
   }
@@ -97,14 +100,8 @@ export class SnailMailComponent implements OnInit {
       this.farmBuildProgress++;
       // updateFarmBuildProgressText();
       if(this.farmBuildProgress >= this.farmBuildProgressMax) {
-        // document.getElementById("dialogDisplay").innerHTML = "Somehow, your crude pile of live snails has become sturdy enough to house other live snails.";
-        // document.getElementById('buildFarmButton').style.display='none';
-        // document.getElementById('farmBuildProgressDisplay').style.display='none';
-        // document.getElementById('farmBuildLineBreak').style.display='none';
-        
-        // document.getElementById('plantSnailButton').style.display='inline';
-        // document.getElementById('farmSnailsDisplay').style.display='inline';
-        // document.getElementById('farmSnailsLineBreak').style.display='inline';
+        this.displayText = "Somehow, your crude pile of live snails has become sturdy enough to house other live snails.";
+        this.suggestBuildingFarmFlag = false;
         this.farmFullyBuiltFlag = true;
       }
     }
@@ -116,7 +113,7 @@ export class SnailMailComponent implements OnInit {
     this.farmSnails++;
     // updateFarmSnailText();
     if(!this.showFarmLimitFlag && this.farmSnails >= this.farmSnailsMax) {
-      // document.getElementById("dialogDisplay").innerHTML = "The farm is filled to the brim! Seems that you can't stuff any more snails in your snail farm.";
+      this.displayText = "The farm is filled to the brim! Seems that you can't stuff any more snails in your snail farm.";
       this.showFarmLimitFlag = true;
       // updateFarmSnailText();
     }
@@ -129,11 +126,8 @@ export class SnailMailComponent implements OnInit {
     // updateCurrentSnailsText();
     
     //Consider flags, given the total aquired snails
-    if (this.suggestBuildingFarmFlag == false && this.totalAquiredSnails >= 150) {
-      // document.getElementById("dialogDisplay").innerHTML = "Perhaps you could build a snail farm to collect snails more efficiently.";
-      // document.getElementById('buildFarmButton').style.display='inline';
-      // document.getElementById('farmBuildProgressDisplay').style.display='inline';
-      // document.getElementById('farmBuildLineBreak').style.display='inline';
+    if (this.farmFullyBuiltFlag == false && this.suggestBuildingFarmFlag == false && this.totalAquiredSnails >= 150) {
+      this.displayText = "Perhaps you could build a snail farm to collect snails more efficiently.";
       this.suggestBuildingFarmFlag = true;
     }
   }
@@ -176,9 +170,7 @@ export class SnailMailComponent implements OnInit {
   
   
   activateTestButton(): void {
-    if(this.snails < 149) {
-      this.gainSnails(49);
-    }
+    this.gainSnails(50);
   }
 
 }
