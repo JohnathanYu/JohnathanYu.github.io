@@ -3,35 +3,32 @@
   <h1> Welcome to Snail Mail! </h1>
 </body>
 
-
 <body>
-  <div id="dialogDisplay">{{ displayText }}</div>
+  <div>{{ displayText }}</div>
 
-  <div id="snailsDisplay">Snails: {{ snails }}</div>
-  <div *ngIf="firstShellFlag" id="shellsDisplay">Shells: {{ shells }}</div>
+  <div>Snails: {{ snails }}</div>
+  <div *ngIf="firstShellFlag">Shells: {{ shells }}</div>
 
   <button (click)="huntSnail()">Hunt a snail</button>
-  <div *ngIf="displayWildSnailsFlag" id="wildSnailsDisplay">Snails in the wild: {{ wildSnailsDisplay }}/{{ wildSnailsMax }}</div>
+  <div *ngIf="displayWildSnailsFlag">Snails in the wild: {{ wildSnails | number: '1.0-0' }}/{{ wildSnailsMax }}</div>
 
   <br>
 
   <div *ngIf="suggestBuildingFarmFlag">
-    <button id="buildFarmButton" (click)="buildFarm()">Build the Snail Farm</button>
-    <div id="farmBuildProgressDisplay">Snails needed to build farm: {{ farmBuildProgress }}/{{ farmBuildProgressMax }}</div>
-    <br id = "farmBuildLineBreak">
+    <button (click)="buildFarm()">Build the Snail Farm</button>
+    <div>Snails needed to build farm: {{ farmBuildProgress }}/{{ farmBuildProgressMax }}</div>
+    <br>
   </div>
-
 
   <div *ngIf="farmFullyBuiltFlag">
-    <button id="plantSnailButton" (click)="plantSnail()">Add a snail to the farm</button>
-    <div id="farmSnailsDisplay">Snails in the farm: {{ farmSnails }}{{ showFarmLimitFlag ? '/' + farmSnailsMax : '' }}</div>
-    <br id = "farmSnailsLineBreak">
+    <button (click)="plantSnail()">Add a snail to the farm</button>
+    <div>Snails in the farm: {{ farmSnails }}{{ showFarmLimitFlag ? '/' + farmSnailsMax : '' }}</div>
+    <br>
   </div>
 
-
   <div *ngIf="DEBUGMODE">
-    <div id="snailsDeltaDisplay">Delta: {{ wildSnailsDelta }} </div>
-    <button id="testButton" (click)="activateTestButton()">Test button</button>
+    <div>Delta: {{ wildSnailsDelta }} </div>
+    <button (click)="activateTestButton()">Get 50 Snails</button>
   </div>
 
 </body>
